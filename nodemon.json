@@ -1,0 +1,6 @@
+{
+    "wath":["server.ts","src/collections/**/*.ts","src/tRPC/idex.ts"],
+    "exec":"ts-node --project tsconfig.server.json src/server.ts -- -I",
+    "ext":"js ts",
+    "stdn": false
+}
