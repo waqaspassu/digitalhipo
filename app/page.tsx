@@ -1,5 +1,4 @@
 import Link from "next/link";
-import MaxWidthWrapper from "./../components/MaxWidthWrapper";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   ArrowDownToLine,
@@ -8,6 +7,7 @@ import {
   Leaf,
   Package,
 } from "lucide-react";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 
 const perks = [
   {
