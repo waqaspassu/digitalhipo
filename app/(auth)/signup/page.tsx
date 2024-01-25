@@ -1,3 +1,4 @@
+"use client"
 import { Icons } from "@/components/Icons";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -5,12 +6,13 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AuthCredentialValidator,
   TAuthCredentialValidator,
 } from "@/lib/validators/account-validators";
+import { trpc } from "@/trpc/client";
 
 const Page = () => {
   const {
@@ -21,6 +23,8 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialValidator),
   });
 
+  const {data} = trpc.anyAPIRoute.useQuery()
+console.log(data)
   const onSubmit = (data: TAuthCredentialValidator) => {
     const { password, email } = data;
   };
