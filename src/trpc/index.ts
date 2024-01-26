@@ -1,8 +1,9 @@
 import { z } from "zod";
 import { PublicProcedure, router } from "./trpc";
+import { authRouter } from "./auth-route";
 
 export const appRouter = router({
-  greeting: PublicProcedure.query(() => "hello world"),
+  auth:authRouter
 });
 
 export type AppRouter = typeof appRouter;

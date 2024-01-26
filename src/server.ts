@@ -11,7 +11,10 @@ const PORT = Number(process.env.PORT) || 3000;
 const createContext = ({
   req,
   res,
-}: trpcExpress.CreateExpressContextOptions) => ({});
+}: trpcExpress.CreateExpressContextOptions) => ({
+  req,
+  res,
+});
 const start = async () => {
   const payload = await getPayloadClient({
     initOptions: {
@@ -31,10 +34,10 @@ const start = async () => {
   );
   app.use((req, res) => nextHandler(req, res));
   nextApp.prepare().then(() => {
-    // payload.logger./info(`Next js started`)
+    // payload.logger.info(`Next js started`)
   });
   app.listen(PORT, () => {
-    // payload.logger.info(`Next js URK started on port ${process.env.NEXT_PUBLIC_SERVER_URL}`)
+    // payload.logger.info(`Next js URK started on port ${process.env.NEXT_PUBLIC_SERVER_URL || 3000}`)
   });
 };
 
