@@ -1,9 +1,8 @@
+import { z } from "zod";
 import { PublicProcedure, router } from "./trpc";
 
 export const appRouter = router({
-    anyAPIRoute: PublicProcedure.query(()=>{
-        return 'hello'
-    })
-})
+  greeting: PublicProcedure.query(() => "hello world"),
+});
 
-export type AppRouter = typeof appRouter
+export type AppRouter = typeof appRouter;

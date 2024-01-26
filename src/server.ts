@@ -11,10 +11,7 @@ const PORT = Number(process.env.PORT) || 3000;
 const createContext = ({
   req,
   res,
-}: trpcExpress.CreateExpressContextOptions) => ({
-  req,
-  res,
-});
+}: trpcExpress.CreateExpressContextOptions) => ({});
 const start = async () => {
   const payload = await getPayloadClient({
     initOptions: {
