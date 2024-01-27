@@ -2,6 +2,7 @@ import { AuthCredentialValidator } from "../lib/validators/account-validators";
 import { PublicProcedure, router } from "./trpc";
 import { getPayloadClient } from "../get-payload";
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
 export const authRouter = router({
   createPayloadUser: PublicProcedure.input(AuthCredentialValidator).mutation(
@@ -10,7 +11,7 @@ export const authRouter = router({
       const payload = await getPayloadClient();
 
       // check if user is already exists
-
+      console.log({ payload });
       const { docs: users } = await payload.find({
         collection: "users",
         where: {
@@ -26,11 +27,29 @@ export const authRouter = router({
         });
       }
       await payload.create({
-        collection:"users",
-        data:{
-
-        }
-      })
+        collection: "users",
+        data: {
+          email,
+          password,
+          role: "user",
+        },
+      });
+      return { success: true, sentToEmail: email };
     }
   ),
+  VerifyEmail: PublicProcedure.input(z.object({token:z.string()})).query(async ({input})=>{
+    const {token} = input;
+    const payload = await getPayloadClient()
+    const isVerified = await payload.verifyEmail({
+      collection:"users",
+      token
+    })
+    if(!isVerified)
+      throw new TRPCError({
+        code:"UNAUTHORIZED"
+      })
+    
+
+    return {success:true}
+  })
 });
