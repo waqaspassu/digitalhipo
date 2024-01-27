@@ -22,11 +22,19 @@ const Page = () => {
   } = useForm<TAuthCredentialValidator>({
     resolver: zodResolver(AuthCredentialValidator),
   });
+const {mutate,isLoading} = trpc.auth.createPayloadUser.useMutation({
 
-  const {data} = trpc.greeting.useQuery()
-console.log(data)
+})
+
+console.log(errors,"erroe")
   const onSubmit = (data: TAuthCredentialValidator) => {
+    console.log("clicked on submit button");
     const { password, email } = data;
+    mutate({
+      email,
+      password,
+    });
+
   };
 
   return (
@@ -48,7 +56,7 @@ console.log(data)
             </Link>
           </div>
           <div className="grid gap-6">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form  onSubmit={handleSubmit(onSubmit)}>
               <div className="grid gap-2">
                 <div className="grid grid-gap-1 py-2">
                   <Label htmlFor="email">Email</Label>
@@ -56,6 +64,9 @@ console.log(data)
                     className={cn({
                       "focus-visible:ring-red-500": errors.email,
                     })}
+                    {...register("email")}
+                    id="email"
+                    type="email"
                     placeholder="your@example.com"
                   />
                 </div>
@@ -65,12 +76,15 @@ console.log(data)
                     className={cn({
                       "focus-visible:ring-red-500": errors.password,
                     })}
+                    {...register("password")}
+                    id="password"
                     placeholder="Password"
                     type="password"
                   />
                 </div>
-                <Button>Sign Up</Button>
+              <Button type="submit">Sign Up</Button>
               </div>
+
             </form>
           </div>
         </div>
