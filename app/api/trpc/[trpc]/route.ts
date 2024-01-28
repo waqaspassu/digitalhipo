@@ -5,6 +5,7 @@ fetchRequestHandler({
     endpoint:'/api/trpc',
     req,
     router: appRouter,
+    // @ts-expect-error already passed context through milddlewere
     createContext:()=>({})
 })
 }
