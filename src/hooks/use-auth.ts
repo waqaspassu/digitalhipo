@@ -24,7 +24,6 @@ export const useAuth = () => {
       router.push("/login")
       router.refresh();
     } catch (err) {
-      console.log("error");
       toast.error("could not sign out");
     }
   };

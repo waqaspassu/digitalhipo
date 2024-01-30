@@ -47,9 +47,7 @@ onSuccess:({sentToEmail})=>{
 }
 })
 
-console.log(errors,"erroe")
   const onSubmit = (data: TAuthCredentialValidator) => {
-    console.log("clicked on submit button");
     const { password, email } = data;
     mutate({
       email,

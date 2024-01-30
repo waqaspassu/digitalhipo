@@ -14,9 +14,8 @@ import { useAuth } from "@/hooks/use-auth";
 
 const UserAccountNav = ({ user }: { user: User }) => {
     const {signout} = useAuth()
-  console.log({ user });
   return (
-    <DropdownMenu aschild className="overflow-visible">
+    <DropdownMenu asChild className="overflow-visible">
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative" size="sm">
           My Account

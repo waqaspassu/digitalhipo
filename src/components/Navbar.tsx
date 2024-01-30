@@ -13,6 +13,7 @@ const Navbar = async () => {
   const {
     user
   } = await getServerSideUser(nextCookies)
+
   return (
     <div className="bg-white sticky z-50 top-0 inset-x-0 h-16">
       <header className="relative bg-white">
@@ -46,7 +47,7 @@ const Navbar = async () => {
                     />
                   )}
                   {user ? (
-                    <UserAccountNav/>
+                    <UserAccountNav user={user}/>
                   ) : (
                     <Link
                       href="/signup"
