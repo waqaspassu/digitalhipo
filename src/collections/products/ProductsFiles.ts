@@ -14,15 +14,45 @@ const yourOwnedAndPurchesed: Access = async ({ req }) => {
   const user = req.user as User | null;
   if (user?.role === "admin") return true;
   if (!user) return false;
-  const {} = await req.payload.find({
+  const { docs: products } = await req.payload.find({
     collection: "products",
-    depth:0,
+    depth: 0,
     where: {
       user: {
         equals: user.id,
       },
     },
   });
+  const ownProducts = products.map((prod) => prod.product_files).flat();
+  const { docs: orders } = await req.payload.find({
+    collection: "orders",
+    depth: 2,
+    where: {
+      user: {
+        equals: user.id,
+      },
+    },
+  });
+  const purchesedProductFilesIds = orders
+    .map((order) => {
+      return order.products.map((product) => {
+        if (typeof product === "string")
+          return req.payload.logger.error(
+            "Search Depth not sufficent to find purchesed ids"
+          );
+        return typeof product.product_files === "string"
+          ? product.product_files
+          : product.product_files.id;
+      });
+    })
+    .filter(Boolean)
+    .flat();
+
+  return {
+    id: {
+      in: [...ownProducts, ...purchesedProductFilesIds],
+    },
+  };
 };
 export const ProductFiles: CollectionConfig = {
   slug: "product_files",
@@ -30,10 +60,12 @@ export const ProductFiles: CollectionConfig = {
     hidden: ({ user }) => user.role !== "admin",
   },
   hooks: {
-    beforeChange: [addUser()],
+    beforeChange: [addUser],
   },
   access: {
     read: yourOwnedAndPurchesed,
+    update:({req}) => req.user.role === "admin",
+    delete:({req}) => req.user.role === "admin"
   },
   upload: {
     staticURL: "/product_files",

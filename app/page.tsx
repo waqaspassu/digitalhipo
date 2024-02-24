@@ -8,6 +8,7 @@ import {
   Package,
 } from "lucide-react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import ProductReel from "@/components/ProductReel";
 
 const perks = [
   {
@@ -25,7 +26,7 @@ const perks = [
     icon: Leaf,
     description:
       "Get your assets and download them right away from here. Restoration from the digital hippo enviroment",
-  }
+  },
 ];
 export default function Home() {
   return (
@@ -48,6 +49,12 @@ export default function Home() {
           </div>
         </div>
         {/* todo link product */}
+        <ProductReel
+          title="Brand New"
+          subtitle="here is our new text so it is here"
+          href="/products"
+          query={{sort:"desc", limit:4}}
+        />
       </MaxWidthWrapper>
       <section className="border-t border-gray-200 bg-gray-50">
         <MaxWidthWrapper className="py-20">
@@ -61,7 +68,9 @@ export default function Home() {
                   <perk.icon className="h-1/3 w-1/3" />
                 </div>
                 <div className="mt-3 md:ml-4 md:mt-0 lg:ml-0 lg:mt-6">
-                  <h3 className="text-base font-medium text-grey-900">{perk.name}</h3>
+                  <h3 className="text-base font-medium text-grey-900">
+                    {perk.name}
+                  </h3>
                   <p className="mt-3 text-sm text-muted-foreground">
                     {perk.description}
                   </p>
