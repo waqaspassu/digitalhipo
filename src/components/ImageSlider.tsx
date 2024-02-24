@@ -69,8 +69,8 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
       </div>
       <Swiper
         pagination={{
-          renderBullet: ({_, className}:any) => {
-            return `<span class="rounded-full transition ${className}"></span>`
+          renderBullet: ({ _, className }: any) => {
+            return `<span class="rounded-full transition ${className}"></span>`;
           },
         }}
         onSwiper={(swiper) => setSwiper(swiper)}
