@@ -123,7 +123,7 @@ const Page = async ({ params }: ProductId) => {
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             <div>
               <div className="mt-10">
-                <AddToCardButton />
+                <AddToCardButton product={product} />
               </div>
               <div className="mt-6 self-center">
                 <div className="group inline-flex text-sm text-medium">
