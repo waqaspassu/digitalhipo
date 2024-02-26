@@ -3,9 +3,11 @@ import { PublicProcedure, router } from "./trpc";
 import { authRouter } from "./auth-route";
 import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
+import { PaymentRouter } from "./payment-router";
 
 export const appRouter = router({
   auth: authRouter,
+  payment: PaymentRouter,
   getInfiniteProducts: PublicProcedure.input(
     z.object({
       limit: z.number().min(1).max(100),
