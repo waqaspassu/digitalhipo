@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { getServerSideUser } from "@/lib/payload-utils";
 import Image from "next/image";
 import { cookies } from "next/headers";

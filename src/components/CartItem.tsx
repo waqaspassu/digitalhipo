@@ -1,4 +1,4 @@
-
+import * as React from 'react';
 import { PRODUCT_CATEGORY } from "@/config";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/utils";

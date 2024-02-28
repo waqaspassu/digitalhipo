@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Product } from "../../payload-types";
 import {
   Body,

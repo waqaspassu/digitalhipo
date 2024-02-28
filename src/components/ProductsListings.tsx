@@ -52,6 +52,7 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
     );
 };
 
+import * as React from "react";
 const ProductPlaceholder = () => {
   return (
     <div className="flex flex-col w-full">

@@ -1,5 +1,5 @@
 "use client";
-
+import * as React from "react";
 import { PRODUCT_CATEGORY } from "@/config";
 import { useEffect, useRef, useState } from "react";
 import NavItem from "./NavItem";

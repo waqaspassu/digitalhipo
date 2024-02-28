@@ -1,3 +1,5 @@
+
+import * as React from "react";
 import { LucideProps } from 'lucide-react'
 
 export const Icons = {

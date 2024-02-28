@@ -1,4 +1,5 @@
 "use client";
+import * as React from "react";
 import { Product } from "@/payload-types";
 import { TQueryValidator } from "../lib/validators/query-validator";
 import { trpc } from "@/trpc/client";
