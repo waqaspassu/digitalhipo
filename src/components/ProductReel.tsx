@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Product } from "@/payload-types";
 import { TQueryValidator } from "../lib/validators/query-validator";
 import { trpc } from "@/trpc/client";
@@ -12,24 +12,28 @@ interface ProductReelsProps {
   query: TQueryValidator;
 }
 
-
 const FALLBACK_LIMIT = 4;
 const ProductReel = (props: ProductReelsProps) => {
   const { title, subtitle, href, query } = props;
-  const {data:queryData, isLoading} = trpc.getInfiniteProducts.useInfiniteQuery({
-    limit: query.limit ?? FALLBACK_LIMIT,query
-  },{
-    getNextPageParam: (lastPage) => lastPage.nextPage
-  });
-  
-  const products = queryData?.pages.flatMap(page=> page.items)
+  const { data: queryData, isLoading } =
+    trpc.getInfiniteProducts.useInfiniteQuery(
+      {
+        limit: query.limit ?? FALLBACK_LIMIT,
+        query,
+      },
+      {
+        getNextPageParam: (lastPage) => lastPage.nextPage,
+      }
+    );
 
-  let map: (Product | null)[] = []
+  const products = queryData?.pages.flatMap((page) => page.items);
 
-  if(products && products.length){
-    map = products
-  }else if(isLoading){
-    map = new Array<null>(query.limit ?? FALLBACK_LIMIT).fill(null)
+  let map: (Product | null)[] = [];
+
+  if (products && products.length) {
+    map = products;
+  } else if (isLoading) {
+    map = new Array<null>(query.limit ?? FALLBACK_LIMIT).fill(null);
   }
   return (
     <section className="py-20">
@@ -56,13 +60,9 @@ const ProductReel = (props: ProductReelsProps) => {
       <div className="relative">
         <div className="mt-6 flex items-center w-full">
           <div className="w-full grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:gap-y-10 lg:gap-x-8">
-            {
-              map.map((product, i)=>{
-                return(
-                  <ProductListing product={product} index={i} />
-                )
-              })
-            }
+            {map.map((product, i) => {
+              return <ProductListing key={i} product={product} index={i} />;
+            })}
           </div>
         </div>
       </div>

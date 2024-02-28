@@ -5,6 +5,9 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 import { appRouter } from "./trpc";
 
 import { inferAsyncReturnType } from "@trpc/server";
+import bodyParser from "body-parser";
+import { IncomingMessage } from "http";
+import { stripeWebhookHandler } from "./webhooks";
 
 const app = express();
 
@@ -18,8 +21,16 @@ const createContext = ({
   res,
 });
 
-export type ExpressContext = inferAsyncReturnType<typeof createContext>
+export type WebhooksRequest = IncomingMessage & { rawBody: Buffer };
+export type ExpressContext = inferAsyncReturnType<typeof createContext>;
 const start = async () => {
+  const webhookMiddleware = bodyParser.json({
+    verify: (req: WebhooksRequest, _, buffer) => {
+      req.rawBody = buffer;
+    },
+  });
+
+  app.post("/api/webhooks/stripe", webhookMiddleware, stripeWebhookHandler);
   const payload = await getPayloadClient({
     initOptions: {
       express: app,
