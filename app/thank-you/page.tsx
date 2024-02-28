@@ -151,7 +151,7 @@ const ThankYou = async ({ searchParams }: PageProps) => {
                 </div>
               </div>
               <div>
-                {/* <PaymentStatus _isPaid={order._isPaid} orderEmail={(order.user as User).email} orderId={order.id}/> */}
+                <PaymentStatus _isPaid={order._isPaid} orderEmail={(order.user as User).email} orderId={order.id}/>
               </div>
               <div className="mt-16 border-t border-gray-100 pt-6 text-right">
                 <Link
